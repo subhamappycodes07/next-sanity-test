@@ -2,8 +2,12 @@ import { getProjects } from "@/sanity/sanity-utils"
 import Image from 'next/image'
 import Link from 'next/link'
 
+export const revalidate = 20
+
 export default async function Home() {
   const projects = await getProjects();
+
+  console.log("testing...root page");
 
   return (
     <div>
@@ -13,7 +17,7 @@ export default async function Home() {
       <p className="mt-3 text-xl text-gray-600">Aloha everyone! Check out my projects!</p>
       <h2 className="mt-24 font-bold text-gray-700 text-3xl">My Projects</h2>
 
-      <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-8">{projects.map((project) => (
+      <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-8">{projects?.map((project) => (
         <Link href={`/projects/${project.slug}`} key={project._id} className="border-2 border-gray-500 rounded-lg p-1 hover:scale-105 hover:border-blue-500 transition">
           {project.image && (
             <Image
